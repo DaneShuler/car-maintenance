@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Menu</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(120deg, #28a745, #155724);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        font-size: 3.5em;
+        margin: 0;
+        color: #fff;
+        animation: fadeInTitle 2s ease-out;
+      }
+
+      header p {
+        font-size: 1.3em;
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Navigation Menu */
+      nav {
+        text-align: center;
+        margin-top: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: inline-block;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      nav ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 280px;
+        padding: 15px 20px;
+        font-size: 1.5em;
+        text-decoration: none;
+        color: #fff;
+        background: rgba(40, 167, 69, 0.8);
+        border: 2px solid #155724;
+        border-radius: 50px;
+        transition: all 0.4s ease, transform 0.2s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      nav ul li a i {
+        margin-right: 15px;
+        font-size: 1.8em;
+      }
+
+      nav ul li a:hover {
+        background: rgba(40, 167, 69, 1);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      footer a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      footer a:visited {
+        color: rgba(200, 255, 200, 0.8);
+      }
+
+      footer a[target="_blank"] {
+        cursor: pointer;
+      }
+
+      /* Side Logos */
+      .logo-container {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .logo-container.left {
+        left: 10%;
+      }
+
+      .logo-container.right {
+        right: 10%;
+      }
+
+      .logo-container img {
+        max-width: 400px;
+        opacity: 0.3;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .logo-container img:hover {
+        opacity: 0.5;
+        transform: scale(1.1);
+      }
+
+      /* Animations */
+      @keyframes fadeInTitle {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-container left">
+      <img src="/static/images/missouri_s&t_logo.png" alt="Missouri S&T Logo" />
+    </div>
+    <header>
+      <h1>View Menu</h1>
+      <p>Select an option to view specific records</p>
+    </header>
+    <nav>
+      <ul>
+        <li>
+          <a href="/view/vehicles"
+            ><i class="fas fa-car"></i>View All Vehicles</a
+          >
+        </li>
+        <li>
+          <a href="/view/parts"><i class="fas fa-tools"></i>View All Parts</a>
+        </li>
+        <li>
+          <a href="/view/maintenance"
+            ><i class="fas fa-clipboard-list"></i>View All Maintenance
+            Records</a
+          >
+        </li>
+        <li>
+          <a href="/view/parts_by_vehicle"
+            ><i class="fas fa-car-battery"></i>View Parts by Vehicle</a
+          >
+        </li>
+        <li>
+          <a href="/view/maintenance_by_vehicle"
+            ><i class="fas fa-wrench"></i>View Maintenance by Vehicle</a
+          >
+        </li>
+        <li>
+          <a href="/"><i class="fas fa-arrow-left"></i>Back to Main Menu</a>
+        </li>
+      </ul>
+    </nav>
+    <footer>
+      &copy; 2024 Car Maintenance Tracker | Designed by
+      <a href="https://www.linkedin.com/in/daneshuler/" target="_blank"
+        >Dane Shuler</a
+      >
+    </footer>
+    <div class="logo-container right">
+      <img src="/static/images/missouri_s&t_logo.png" alt="Missouri S&T Logo" />
+    </div>
+  </body>
+</html>

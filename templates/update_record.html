@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update {{ record_type }}</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(120deg, #28a745, #155724);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        font-size: 3.5em;
+        margin: 0;
+        color: #fff;
+        animation: fadeInTitle 2s ease-out;
+      }
+
+      header p {
+        font-size: 1.3em;
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Form Styling */
+      form {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 50%;
+      }
+
+      label {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      input,
+      select {
+        width: 90%;
+        padding: 10px;
+        font-size: 1em;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      button {
+        background: rgba(40, 167, 69, 0.8);
+        border: 2px solid #155724;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        color: #fff;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background: rgba(40, 167, 69, 1);
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      footer a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      footer a:visited {
+        color: rgba(200, 255, 200, 0.8);
+      }
+
+      footer a[target="_blank"] {
+        cursor: pointer;
+      }
+
+      /* Side Logos */
+      .logo-container {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .logo-container.left {
+        left: 10%;
+      }
+
+      .logo-container.right {
+        right: 10%;
+      }
+
+      .logo-container img {
+        max-width: 400px;
+        opacity: 0.3;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .logo-container img:hover {
+        opacity: 0.5;
+        transform: scale(1.1);
+      }
+
+      /* Animations */
+      @keyframes fadeInTitle {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-container left">
+      <img src="/static/images/missouri_s&t_logo.png" alt="Missouri S&T Logo" />
+    </div>
+    <header>
+      <h1>Update {{ record_type }}</h1>
+    </header>
+    <form method="post">
+      <label for="record_id">Select Record to Update:</label>
+      <select name="record_id" id="record_id" required>
+        {% for record in records %} {% if record_type == 'Vehicle' %}
+        <option value="{{ record['VehicleID'] }}">
+          Vehicle ID: {{ record['VehicleID'] }}, Make: {{ record['Make'] }},
+          Model: {{ record['Model'] }}, Year: {{ record['Year'] }}
+        </option>
+        {% elif record_type == 'Part' %}
+        <option value="{{ record['PartID'] }}">
+          Part ID: {{ record['PartID'] }}, Name: {{ record['PartName'] }},
+          Quantity: {{ record['Quantity'] }}, Vehicle ID: {{ record['VehicleID']
+          or 'N/A' }}
+        </option>
+        {% elif record_type == 'Maintenance' %}
+        <option value="{{ record['MaintenanceID'] }}">
+          Maintenance ID: {{ record['MaintenanceID'] }}, Vehicle ID: {{
+          record['VehicleID'] }}, Type: {{ record['TypeOfService'] }}, Date: {{
+          record['DateOfService'] }}
+        </option>
+        {% endif %} {% endfor %}
+      </select>
+
+      <!-- Update Fields -->
+      <div id="update-fields">
+        {% if record_type == 'Vehicle' %}
+        <label for="make">Make:</label>
+        <input type="text" name="make" id="make" />
+        <label for="model">Model:</label>
+        <input type="text" name="model" id="model" />
+        <label for="year">Year:</label>
+        <input type="text" name="year" id="year" />
+        <label for="vin">VIN:</label>
+        <input type="text" name="vin" id="vin" />
+        {% elif record_type == 'Part' %}
+        <label for="part_name">Part Name:</label>
+        <input type="text" name="part_name" id="part_name" />
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" />
+        <label for="vehicle_id">Associated Vehicle ID:</label>
+        <input type="text" name="vehicle_id" id="vehicle_id" />
+        {% elif record_type == 'Maintenance' %}
+        <label for="date_of_service">Date of Service:</label>
+        <input type="date" name="date_of_service" id="date_of_service" />
+        <label for="type_of_service">Type of Service:</label>
+        <input type="text" name="type_of_service" id="type_of_service" />
+        <label for="mileage">Mileage:</label>
+        <input type="number" name="mileage" id="mileage" />
+        <label for="next_service_date">Next Service Date:</label>
+        <input type="date" name="next_service_date" id="next_service_date" />
+        <label for="next_service_mileage">Next Service Mileage:</label>
+        <input
+          type="number"
+          name="next_service_mileage"
+          id="next_service_mileage"
+        />
+        {% endif %}
+      </div>
+
+      <button type="submit"><i class="fas fa-edit"></i> Update</button>
+    </form>
+    <footer>
+      <a href="/"><i class="fas fa-arrow-left"></i> Back to Main Menu</a>
+    </footer>
+    <div class="logo-container right">
+      <img src="/static/images/missouri_s&t_logo.png" alt="Missouri S&T Logo" />
+    </div>
+  </body>
+</html>

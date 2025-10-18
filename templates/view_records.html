@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View {{ record_type }}</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg, #28a745, #155724);
+        color: #fff;
+        text-align: center;
+        min-height: 100vh;
+      }
+
+      header {
+        margin: 20px 0;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin: 0;
+        color: #fff;
+      }
+
+      header p {
+        font-size: 1.2em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* Table Styles */
+      table {
+        margin: 30px auto;
+        border-collapse: collapse;
+        width: 80%;
+        max-width: 1200px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background: #f8f9fa;
+        color: #155724;
+      }
+
+      th {
+        background: #28a745;
+        color: #fff;
+      }
+
+      tr:hover {
+        background: rgba(40, 167, 69, 0.3);
+      }
+
+      /* Back Button */
+      .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #155724;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: #28a745;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>View {{ record_type }}</h1>
+      <p>Below are the details for all {{ record_type }} records.</p>
+    </header>
+
+    {% if records %}
+    <table>
+      <thead>
+        <tr>
+          {% for key in records[0].keys() %}
+          <th>{{ key.replace('_', ' ') }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          {% for value in record.values() %}
+          <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No {{ record_type }} records found.</p>
+    {% endif %}
+
+    <a href="/view_menu" class="back-btn">Back to View Menu</a>
+  </body>
+</html>

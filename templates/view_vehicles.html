@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View All Vehicles</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>All Vehicles</h1>
+    </header>
+    <main>
+      {% if records %}
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle ID</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>VIN</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in records %}
+          <tr>
+            <td>{{ record['VehicleID'] }}</td>
+            <td>{{ record['Make'] }}</td>
+            <td>{{ record['Model'] }}</td>
+            <td>{{ record['Year'] }}</td>
+            <td>{{ record['VIN'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No vehicles found.</p>
+      {% endif %}
+      <a href="/view_menu">Back to View Menu</a>
+    </main>
+  </body>
+</html>
